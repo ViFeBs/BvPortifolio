@@ -135,7 +135,7 @@
                     <div class="tags">
                         ${project.languages.map(lang => `<span class="tag">${lang}</span>`).join('')}
                     </div>
-                    <button onclick="location.href='${project.link}'">Ver mais</button>
+                    <button onclick="location.href='${project.link}'">${isEnglish ? "See more" : "Ver Mais" }</button>
                 `;
                 projectsContainer.appendChild(card);
             });
