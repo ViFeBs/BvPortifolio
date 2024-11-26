@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BVPortifolio</title>
+        <link rel="icon" href="./src/icon.ico" type="image/x-icon">
+        <link rel="stylesheet" type="text/css" href="./css/index.css" media="screen" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="background">
+            <!-- Vídeo de introdução, que será exibido apenas uma vez -->
+            <video autoplay muted playsinline class="background-video intro" onended="switchToLoop()">
+                <source src="./src/intro.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos.
+            </video>
+            
+            <!-- Vídeo de loop, oculto inicialmente -->
+            <video autoplay loop muted playsinline class="background-video loop" style="display: none;">
+                <source src="./src/loop.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos.
+            </video>
+        </div>
+        <div id="index" class="content">
+            <div class="intro-container">
+                <!-- Texto do título -->
+                <h1 class="intro-text"> < BViana > Bruno Viana - Desenvolvedor Back-end Júnior</h1>
+                <!-- Botão para alterar o idioma -->
+                <button class="language-toggle" id="language-toggle-btn">PT / EN</button>
+            </div>
+            <!--Menu inicial-->
+            <div class="menu">
+                <a href="#about" class="menu-item">Sobre Mim</a>
+                <a href="#projects" class="menu-item">Projetos</a>
+                <a href="#contact" class="menu-item">Contatos</a>
+            </div>
+        </div>
+        <!-- Seção Sobre Mim  -->
+        <section class="section full-screen" id="about">
+            <div class="photo-container">
+                <img src="./src/profileImg.jpeg" alt="Minha Foto" class="photo">
+            </div>
+            <h2>Sobre Mim</h2>
+            <p>
+                Sou uma pessoa muito tranquila, apaixonado por tecnologia e arte,
+                estou buscando minha primeira oportunidade como junior, 
+                tenho facilidade em me adaptar a novas linguagens e tecnologias,
+                tenho preferência em desenvolvimento back-end 
+                mas possuo conhecimento sólido em front-end
+            </p>
+            <br />
+            <a href="#index" class="menu-item">Voltar</a>
+            <a href="#projects" class="menu-item">Projetos</a>
+        </section>
+
+        <!-- Projetos -->
+        <section class="section full-screen" id="projects">
+            <h2>Projetos</h2>
+            <div id="projects-container" class="projects-container"></div>
+            <div class="pagination-container"></div>
+            <a href="#index" class="menu-item">Voltar</a>
+            <a href="#contact" class="menu-item">Contatos</a>
+        </section>
+
+        <!-- Contatos -->
+        <section class="section full-screen" id="contact">
+            <h2>Contatos</h2>
+            <!-- Card para LinkedIn -->
+            <div class="contact-card">
+                <img src="./src/linkedln.png" alt="LinkedIn" class="icon" />
+                <a href="https://www.linkedin.com/in/bruno-viana-rufino-693572189/" target="_blank">LinkedIn</a>
+                <button onclick="window.open('https://www.linkedin.com/in/bruno-viana-rufino-693572189/', '_blank')" class="contact-btn" id="contactbtn">Visitar</button>
+            </div>
+
+            <!-- Card para GitHub -->
+            <div class="contact-card">
+                <img src="./src/github.png" alt="GitHub" class="icon" />
+                <a href="https://github.com/ViFeBs/" target="_blank">GitHub</a>
+                <button onclick="window.open('https://github.com/ViFeBs/', '_blank')" class="contact-btn" id="contactbtn">Visitar</button>
+            </div>
+
+            <!-- Card para Email -->
+            <div class="contact-card">
+                <img src="./src/email.png" alt="Email" class="icon" />
+                <span>bruno.rufino2@outlook.com</span>
+                <button onclick="copyEmail('bruno.rufino2@outlook.com')" class="contact-btn" id="emailbtn">Copiar</button>
+            </div>
+            <a href="#index" class="menu-item">Voltar</a>
+        </section>
+    </body>
+    <!--Faz a troca do background intro pro loop-->
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', () => {
+            const introVideo = document.querySelector('.intro');
+            introVideo.onended = switchToLoop; // Associa o evento de término ao vídeo
+        });
+        //controladora do background
+        function switchToLoop() {
+            document.querySelector('.intro').style.display = 'none'; // Oculta a intro
+            document.querySelector('.loop').style.display = 'block'; // Exibe o loop
+            // Anima o texto e o botão após o término do vídeo de introdução
+            setTimeout(() => {
+                document.querySelector('.intro-container').classList.add('animate'); 
+                document.querySelector('.menu').classList.add('menu-animation');
+            }, 500);
+        }
+        //---------------------------------------------------------------------------- Carrega os Projetos ------------------------------------------------------//
+        import { projects } from './data/projects.js';
+        const projectsPerPage = 3;
+        let currentPage = 1;
+
+        function renderProjects(page) {
+            const startIndex = (page - 1) * projectsPerPage;
+            const endIndex = startIndex + projectsPerPage;
+            const paginatedProjects = projects.slice(startIndex, endIndex);
+
+            const projectsContainer = document.querySelector('.projects-container');
+            projectsContainer.innerHTML = ''; // Limpa os projetos existentes
+
+            // Verifica o idioma atual
+            const isEnglish = document.body.classList.contains('english');
+
+            paginatedProjects.forEach(project => {
+                const card = document.createElement('div');
+                card.classList.add('project-card');
+                card.dataset.id = project.id;
+
+                card.innerHTML = `
+                    <img src="${project.image}" alt="${project.name}">
+                    <h3 class="project-title">${isEnglish ? project.nameEn : project.name}</h3> <!-- Nome no idioma certo -->
+                    <p class="project-description">${isEnglish ? project.descriptionEn : project.description}</p> <!-- Descrição no idioma certo -->
+                    <div class="tags">
+                        ${project.languages.map(lang => `<span class="tag">${lang}</span>`).join('')}
+                    </div>
+                    <button onclick="location.href='${project.link}'">Ver mais</button>
+                `;
+                projectsContainer.appendChild(card);
+            });
+
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(projects.length / projectsPerPage);
+            const paginationContainer = document.querySelector('.pagination-container');
+            paginationContainer.innerHTML = ''; // Limpa os botões de paginação existentes
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.classList.add('pagination-button');
+                button.textContent = i;
+                button.disabled = i === currentPage;
+
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    renderProjects(currentPage);
+                });
+
+                paginationContainer.appendChild(button);
+            }
+        }
+
+        // Inicializa a exibição dos projetos
+        renderProjects(currentPage);
+
+        //---------------------------------------------------------------------------- Carrega os Projetos ------------------------------------------------------//            
+        // Função que alterna o idioma
+        document.addEventListener('DOMContentLoaded', () => {
+            const languageToggleButton = document.querySelector('#language-toggle-btn');
+            languageToggleButton.addEventListener('click', toggleLanguage);
+        });
+        
+        function toggleLanguage() {
+            const isEnglish = document.body.classList.toggle("english");
+
+            // Atualiza o conteúdo conforme o idioma
+            const aboutText = document.querySelector("#about p");
+            const aboutHeading = document.querySelector("#about h2");
+            if (isEnglish) {
+                aboutHeading.innerText = "About Me";
+                aboutText.innerText = "A pretty calm person who loves technology and art, still looking "+
+                                      "for my first expirence as a junior developer, i'm more of a back-end person but i gotta a solid knowledge on front-end as well.";
+            } else {
+                aboutHeading.innerText = "Sobre Mim";
+                aboutText.innerText = "Sou uma pessoa muito tranquila, apaixonado por tecnologia e arte, estou buscando minha primeira oportunidade como junior,"+
+                                      "tenho facilidade em me adaptar a novas linguagens e tecnologias, tenho preferência em desenvolvimento back-end " +
+                                      "mas possuo conhecimento sólido em front-end";
+            }
+
+            const projectHeading = document.querySelector("#projects h2");
+            if (isEnglish) {
+                projectHeading.innerText = "Projects";
+            } else {
+                projectHeading.innerText = "Projetos";
+            }
+
+            const contactHeading = document.querySelector("#contact h2");
+            const contactButton = document.querySelectorAll("#contactbtn");
+            const emailButton = document.querySelector("#emailbtn");
+            if (isEnglish) {
+                contactHeading.innerText = "Contacts";
+                contactButton[0].innerText = "Visit";
+                contactButton[1].innerText = "Visit";
+                emailButton.innerText = "Copy";
+            } else {
+                contactHeading.innerText = "Contatos";
+                contactButton[0].innerText = "Visitar";
+                contactButton[1].innerText = "Visitar";
+                emailButton.innerText = "Copiar";
+            }
+
+            // Atualiza textos dos projetos
+            renderProjects(currentPage)
+
+            
+
+            // Atualiza textos do menu inicial
+            const menuItems = document.querySelectorAll(".menu-item");
+            if (isEnglish) {
+                menuItems[0].innerText = "About Me";
+                menuItems[1].innerText = "Projects";
+                menuItems[2].innerText = "Contacts";
+                menuItems[3].innerText = "Back";
+                menuItems[4].innerText = "Projects";
+                menuItems[5].innerText = "Back";
+                menuItems[6].innerText = "Contacts";
+                menuItems[7].innerText = "Back";
+            } else {
+                menuItems[0].innerText = "Sobre Mim";
+                menuItems[1].innerText = "Projetos";
+                menuItems[2].innerText = "Contatos";
+                menuItems[3].innerText = "Voltar";
+                menuItems[4].innerText = "Projetos";
+                menuItems[5].innerText = "Voltar";
+                menuItems[6].innerText = "Contatos";
+                menuItems[7].innerText = "Voltar";
+            }
+        }
+    
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+
+            const options = {
+                root: null, // Usa a viewport como raiz
+                threshold: 0.5 // A seção precisa estar 50% visível para aplicar o fade-in
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fadeIn-visible'); // Aplica a classe para animação
+                        observer.unobserve(entry.target); // Para de observar após a animação ser aplicada
+                    }
+                });
+            }, options);
+
+            sections.forEach(section => {
+                observer.observe(section); // Observa cada seção
+            });
+        });
+
+        //copiar email
+        function copyEmail(email) {
+            const contactbtn = document.getElementById('emailbtn');
+
+            navigator.clipboard.writeText(email).then(() => {
+                contactbtn.innerText = "Copiado";
+                contactbtn.classList.add('copied');
+
+                // Retorna ao texto original após 2 segundos
+                setTimeout(() => {
+                    contactbtn.innerText = "Copiar";
+                    contactbtn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+</html>
