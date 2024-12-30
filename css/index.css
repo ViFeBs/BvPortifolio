@@ -413,6 +413,8 @@ html, body {
 .project-card img {
     width: 100%;
     height: auto;
+    max-height: 200px; /* Ajuste conforme o design desejado */
+    object-fit: cover; /* Garante que a imagem seja cortada para caber no espaço */
     border-bottom: 1px solid #dddddd;
 }
 

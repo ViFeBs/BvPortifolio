@@ -262,21 +262,33 @@
                 observer.observe(section); // Observa cada seção
             });
         });
-
+    </script>
+    <script>
         //copiar email
         function copyEmail(email) {
             const contactbtn = document.getElementById('emailbtn');
-
-            navigator.clipboard.writeText(email).then(() => {
-                contactbtn.innerText = "Copiado";
+            const isEnglish = document.body.classList.toggle("english");
+            if(isEnglish){
+                navigator.clipboard.writeText(email).then(() => {
+                contactbtn.innerText = "Copied";
                 contactbtn.classList.add('copied');
-
-                // Retorna ao texto original após 2 segundos
                 setTimeout(() => {
-                    contactbtn.innerText = "Copiar";
-                    contactbtn.classList.remove('copied');
-                }, 2000);
-            });
+                        contactbtn.innerText = "Copy";
+                        contactbtn.classList.remove('copied');
+                    }, 2000);
+                });
+            }else{
+                navigator.clipboard.writeText(email).then(() => {
+                    contactbtn.innerText = "Copiado";
+                    contactbtn.classList.add('copied');
+
+                    // Retorna ao texto original após 2 segundos
+                    setTimeout(() => {
+                        contactbtn.innerText = "Copiar";
+                        contactbtn.classList.remove('copied');
+                    }, 2000);
+                });
+            }
         }
     </script>
 </html>

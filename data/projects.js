@@ -1,13 +1,13 @@
 export const projects = [
     {
         id: 1,
-        name: "Projeto 1",
-        nameEn: "Project 1",
-        image: "./src/project-placeholder.jpg",
-        description: "Descrição breve do projeto 1.",
-        descriptionEn: "Brief description of Project 1.",
-        languages: ["JavaScript", "HTML", "CSS"],
-        link: "./projeto1.html"
+        name: "Algorithm Visualizer",
+        nameEn: "Algorithm Visualizer",
+        image: "./src/algorithmvisualizer.PNG",
+        description: "Um simples visualizador de algoritmos de ordenação, busca e estrutura de dados",
+        descriptionEn: "A simple algorithm visualizer of sort, search and data structure",
+        languages: ["C#"],
+        link: "https://github.com/ViFeBs/Algorithm-visualizer"
     },
     {
         id: 2,
