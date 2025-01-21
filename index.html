@@ -27,7 +27,7 @@
         <div id="index" class="content">
             <div class="intro-container">
                 <!-- Texto do título -->
-                <h1 class="intro-text"> < BViana > Bruno Viana - Desenvolvedor Back-end Júnior</h1>
+                <h1 class="intro-text" id="intro-text"> < BViana > Bruno Viana - Desenvolvedor Full-Stack</h1>
                 <!-- Botão para alterar o idioma -->
                 <button class="language-toggle" id="language-toggle-btn">PT / EN</button>
             </div>
@@ -45,11 +45,9 @@
             </div>
             <h2>Sobre Mim</h2>
             <p>
-                Sou uma pessoa muito tranquila, apaixonado por tecnologia e arte,
-                estou buscando minha primeira oportunidade como junior, 
-                tenho facilidade em me adaptar a novas linguagens e tecnologias,
-                tenho preferência em desenvolvimento back-end 
-                mas possuo conhecimento sólido em front-end
+                Trabalho como administrador de empresas , mas estou transicionando minha carreira para programação tenho conhecimento em várias linguagens e tecnologias, 
+                como: Java, c#(.Net), React, Node, SQL, MongoDB, Docker, Azure, AWS, os meus principais projetos podem ser encontrados no meu portfólio ou github, 
+                apesar de ser full-stack meu conhecimento principal é no back-end.
             </p>
             <br />
             <a href="#index" class="menu-item">Voltar</a>
@@ -176,18 +174,21 @@
         function toggleLanguage() {
             const isEnglish = document.body.classList.toggle("english");
 
+            const introTitle = document.querySelector("#intro-text");
+            if (isEnglish) {
+                introTitle.innerText = "< BViana > Bruno Viana - Full-Stack Developer";
+            } else {
+                introTitle.innerText = "< BViana > Bruno Viana - Desenvolvedor Full-Stack";
+            }
             // Atualiza o conteúdo conforme o idioma
             const aboutText = document.querySelector("#about p");
             const aboutHeading = document.querySelector("#about h2");
             if (isEnglish) {
                 aboutHeading.innerText = "About Me";
-                aboutText.innerText = "A pretty calm person who loves technology and art, still looking "+
-                                      "for my first expirence as a junior developer, i'm more of a back-end person but i gotta a solid knowledge on front-end as well.";
+                aboutText.innerText = "I work as a business administrator, but I am transitioning my career to programming. I have knowledge in various languages and technologies, such as Java, C# (.Net), React, Node, SQL, MongoDB, Docker, Azure, and AWS. My main projects can be found in my portfolio or GitHub. Although I am full-stack, my primary expertise is in back-end development.";
             } else {
                 aboutHeading.innerText = "Sobre Mim";
-                aboutText.innerText = "Sou uma pessoa muito tranquila, apaixonado por tecnologia e arte, estou buscando minha primeira oportunidade como junior,"+
-                                      "tenho facilidade em me adaptar a novas linguagens e tecnologias, tenho preferência em desenvolvimento back-end " +
-                                      "mas possuo conhecimento sólido em front-end";
+                aboutText.innerText = "Trabalho como administrador de empresas , mas estou transicionando minha carreira para programação tenho conhecimento em várias linguagens e tecnologias, como: Java, c#(.Net), React, Node, SQL, MongoDB, Docker, Azure, AWS, os meus principais projetos podem ser encontrados no meu portfólio ou github, apesar de ser full-stack meu conhecimento principal é no back-end.";
             }
 
             const projectHeading = document.querySelector("#projects h2");
