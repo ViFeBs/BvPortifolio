@@ -1,6 +1,16 @@
 export const projects = [
     {
         id: 1,
+        name: "E-Commerce",
+        nameEn: "E-Commerce",
+        image: "./src/ecommerce.PNG",
+        description: "Um ecommercer com parte administrativo para cadastro de produtos e outra para clientes com compra e carrinho de produtos",
+        descriptionEn: "An e-commerce platform with an administrative section for product registration and another section for customers, including shopping and a product cart.",
+        languages: ["PHP"],
+        link: "https://github.com/ViFeBs/killjoy2.0"
+    },
+    {
+        id: 2,
         name: "Algorithm Visualizer",
         nameEn: "Algorithm Visualizer",
         image: "./src/algorithmvisualizer.PNG",
@@ -8,16 +18,6 @@ export const projects = [
         descriptionEn: "A simple algorithm visualizer of sort, search and data structure",
         languages: ["C#"],
         link: "https://github.com/ViFeBs/Algorithm-visualizer"
-    },
-    {
-        id: 2,
-        name: "Projeto 2",
-        nameEn: "Project 2",
-        image: "./src/project-placeholder.jpg",
-        description: "Descrição breve do projeto 2.",
-        descriptionEn: "Brief description of Project 2.",
-        languages: ["Python", "Flask"],
-        link: "./projeto2.html"
     },
     {
         id: 3,
